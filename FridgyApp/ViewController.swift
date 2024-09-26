@@ -29,6 +29,7 @@ class ViewController: UIViewController {
 
     }
     
+    //method that displays the UIPickerView when the user selects the button
     @objc func showPicker() {
             // creates alert to show picker as action
             let alertController = UIAlertController(title: "Select Filter", message: "\n\n\n\n\n\n", preferredStyle: .actionSheet)
