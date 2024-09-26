@@ -19,7 +19,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="g4e-qN-zuZ">
                                 <rect key="frame" x="96.666666666666686" y="309" width="200" height="234"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="snow" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-PV-T4k">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="snowflake" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-PV-T4k">
                                         <rect key="frame" x="0.0" y="0.6666666666666714" width="200" height="198.66666666666669"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -48,7 +48,7 @@
     </scenes>
     <resources>
         <image name="fridgy" width="68" height="34"/>
-        <image name="snow" catalog="system" width="119" height="128"/>
+        <image name="snowflake" catalog="system" width="119" height="128"/>
         <namedColor name="frostBlue">
             <color red="0.61323740939908811" green="0.84520257568425472" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
