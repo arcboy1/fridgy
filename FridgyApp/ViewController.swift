@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     //MARK: PROPERTIES
     var fridgeStore=FridgeStore()
     
+    //format for expiration date
     var dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateFormat = "dd/MM/yyyy"
@@ -33,6 +34,13 @@ class ViewController: UIViewController {
     //MARK: View methods
 
     override func viewDidLoad() {
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "Fridge Inventory"
+        titleLabel.font = UIFont(name: "PlaywriteDEGrund-VariableFont_wght", size: 17)
+        titleLabel.textColor = .white
+        
+        navigationItem.titleView = titleLabel
         super.viewDidLoad()
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -57,7 +65,11 @@ class ViewController: UIViewController {
         cell.expiration?.text = "\(self.dateFormatter.string(from: itemIdentifier.expirationDate))"
         
         // fetch and assign the image
-        cell.itemImageView?.image = self.fridgeStore.fetchImage(withIdentifier: itemIdentifier.id)
+        if let itemImage = self.fridgeStore.fetchImage(withIdentifier: itemIdentifier.id) {
+            cell.itemImageView?.image = itemImage
+        } else {
+            cell.itemImageView?.image = UIImage(named: "placeholderimage")
+        }
         
         
         return cell
@@ -71,7 +83,7 @@ class ViewController: UIViewController {
         // filter items based on the selected type
         let filteredItems: [FridgeItem]
         if type == .allItems {
-            filteredItems = fridgeStore.allItems // Show all items if "All Items" is selected
+            filteredItems = fridgeStore.allItems //default all items
         } else {
             filteredItems = fridgeStore.allItems.filter { $0.type == type }
         }
@@ -112,6 +124,8 @@ class ViewController: UIViewController {
 
 
 }
+
+//MARK: Extension methods
 extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     //methods for supplying data to pickerview and controlling its appearance/text

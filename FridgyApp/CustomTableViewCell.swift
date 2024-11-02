@@ -26,7 +26,14 @@ class CustomTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        //rounded corners for cell
+        self.layer.cornerRadius = 20
+        self.layer.masksToBounds = true
+
+        //round corners of image view
+//        itemImageView.layer.cornerRadius = 10
+//        itemImageView.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
