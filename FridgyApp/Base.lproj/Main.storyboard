@@ -138,7 +138,11 @@
                             <constraint firstItem="lfL-zY-SP3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="uJw-9a-WIU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="tqs-Qu-Ias"/>
+                    <navigationItem key="navigationItem" id="tqs-Qu-Ias">
+                        <barButtonItem key="rightBarButtonItem" title="Add Item" image="plus.circle" catalog="system" id="O3V-18-DUF">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="filterButton" destination="lfL-zY-SP3" id="m42-Dm-seh"/>
                     </connections>
@@ -183,6 +187,7 @@
     </scenes>
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
+        <image name="plus.circle" catalog="system" width="128" height="123"/>
         <namedColor name="frostBlue">
             <color red="0.61299997568130493" green="0.84500002861022949" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
