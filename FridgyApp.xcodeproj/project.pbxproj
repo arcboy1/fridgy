@@ -41,6 +41,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A13F61F52CD5A00D00AD67E6 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				A1F96C6C2CA4E16B00B9D399 /* PlaywriteDEGrund-VariableFont_wght.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		A1F96C492CA4E01C00B9D399 = {
 			isa = PBXGroup;
 			children = (
@@ -68,7 +76,7 @@
 				A1F96C632CA4E01D00B9D399 /* LaunchScreen.storyboard */,
 				A1F96C662CA4E01D00B9D399 /* Info.plist */,
 				A1F96C5E2CA4E01C00B9D399 /* FridgyApp.xcdatamodeld */,
-				A1F96C6C2CA4E16B00B9D399 /* PlaywriteDEGrund-VariableFont_wght.ttf */,
+				A13F61F52CD5A00D00AD67E6 /* Fonts */,
 			);
 			path = FridgyApp;
 			sourceTree = "<group>";
