@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A13F61F72CD5AC4D00AD67E6 /* FridgeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13F61F62CD5AC4D00AD67E6 /* FridgeItem.swift */; };
+		A13F61F92CD6C96600AD67E6 /* FridgeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13F61F82CD6C96600AD67E6 /* FridgeStore.swift */; };
 		A1F96C562CA4E01C00B9D399 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F96C552CA4E01C00B9D399 /* AppDelegate.swift */; };
 		A1F96C582CA4E01C00B9D399 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F96C572CA4E01C00B9D399 /* SceneDelegate.swift */; };
 		A1F96C5A2CA4E01C00B9D399 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F96C592CA4E01C00B9D399 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		A13F61F62CD5AC4D00AD67E6 /* FridgeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeItem.swift; sourceTree = "<group>"; };
+		A13F61F82CD6C96600AD67E6 /* FridgeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeStore.swift; sourceTree = "<group>"; };
 		A1F96C522CA4E01C00B9D399 /* FridgyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FridgyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1F96C552CA4E01C00B9D399 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1F96C572CA4E01C00B9D399 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				A1F96C552CA4E01C00B9D399 /* AppDelegate.swift */,
 				A1F96C572CA4E01C00B9D399 /* SceneDelegate.swift */,
 				A1F96C592CA4E01C00B9D399 /* ViewController.swift */,
+				A13F61F82CD6C96600AD67E6 /* FridgeStore.swift */,
 				A1F96C5B2CA4E01C00B9D399 /* Main.storyboard */,
 				A13F61F62CD5AC4D00AD67E6 /* FridgeItem.swift */,
 				A1F96C612CA4E01D00B9D399 /* Assets.xcassets */,
@@ -156,6 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A13F61F92CD6C96600AD67E6 /* FridgeStore.swift in Sources */,
 				A1F96C602CA4E01C00B9D399 /* FridgyApp.xcdatamodeld in Sources */,
 				A1F96C5A2CA4E01C00B9D399 /* ViewController.swift in Sources */,
 				A1F96C562CA4E01C00B9D399 /* AppDelegate.swift in Sources */,

@@ -26,8 +26,12 @@ class ViewController: UIViewController {
         pickerView.dataSource = self
         filterButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
         
-
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    
     
     //method that displays the UIPickerView when the user selects the button
     @objc func showPicker() {

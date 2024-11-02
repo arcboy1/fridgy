@@ -24,7 +24,7 @@ class FridgeItem: Codable, Hashable, Equatable {
     var details: String
     var type: FridgeType
     
-    init(id: String, name: String, quantity: Int, currentDate: Date, expirationDate: Date, details: String, type: FridgeType) {
+    init(id: String = UUID().uuidString, name: String, quantity: Int, currentDate: Date, expirationDate: Date, details: String, type: FridgeType) {
         self.id = id
         self.name = name
         self.quantity = quantity
