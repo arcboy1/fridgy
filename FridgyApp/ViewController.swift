@@ -113,7 +113,6 @@ class ViewController: UIViewController {
             let selectedType = self.filterOptions[selectedRow]
             self.filterButton.setTitle(selectedType.rawValue, for: .normal)
             
-            
             self.createSnapshot(for: selectedType)
             
         }))

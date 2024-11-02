@@ -11,6 +11,7 @@ import UIKit
 
 class CustomTableViewCell: UITableViewCell {
     
+    //MARK: Outlets
 
     @IBOutlet weak var itemImageView: UIImageView!
     
@@ -20,7 +21,7 @@ class CustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var expiration: UILabel!
     
-    @IBOutlet weak var animationView: UIView!
+    @IBOutlet weak var animationView: ExpirationProgressView!
     
     
     
@@ -40,6 +41,13 @@ class CustomTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    //MARK: animationView methods
+    func configureProgress(startDate: Date, expirationDate: Date) {
+        animationView.startDate = startDate
+        animationView.expirationDate = expirationDate
+        animationView.setNeedsDisplay()
     }
 
 }
