@@ -36,11 +36,15 @@ class FridgeItem: Codable, Hashable, Equatable {
 }
 
 enum FridgeType: String, Codable {
-    case dairy
-    case produce
-    case meat
-    case beverage
-    case condiments
-    case frozen
-    case others
+    case allItems = "All Items"
+    case drinks = "Drinks"
+    case condiments = "Condiments"
+    case food = "Food"
+    case snacks = "Snacks"
+    case fruit = "Fruit"
+    case vegetable = "Vegetable"
+    case meat = "Meat"
+    case dairy = "Dairy"
+    case dessert = "Dessert"
+    case other = "Other"
 }
