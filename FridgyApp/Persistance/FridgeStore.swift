@@ -7,7 +7,7 @@
 import UIKit
 import Foundation
 
-class InventoryStore{
+class FridgeStore{
     private var fridgeItems = [FridgeItem]()
     
     init(){
@@ -34,13 +34,13 @@ class InventoryStore{
         return paths[0]
     }
 
-    func alreadyInList(item: FridgeItem) -> Bool {
-        if fridgeItems.contains(item){
-            return true
-        } else {
-            return false
-        }
-    }
+//    func alreadyInList(item: FridgeItem) -> Bool {
+//        if fridgeItems.contains(item){
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
     
     //MARK: - Adding and Deleting
     

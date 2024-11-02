@@ -39,15 +39,16 @@
                                 <rect key="frame" x="8" y="165.66666666666669" width="377" height="644.33333333333326"/>
                                 <color key="backgroundColor" name="frostBlue"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="fridgeCell" rowHeight="100" id="oe2-N7-Sbp">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="fridgeCell" rowHeight="100" id="oe2-N7-Sbp" customClass="CustomTableViewCell" customModule="FridgyApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="377" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oe2-N7-Sbp" id="dMn-Cg-ByC">
                                             <rect key="frame" x="0.0" y="0.0" width="377" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QQ5-AP-qIH">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fridgy" translatesAutoresizingMaskIntoConstraints="NO" id="QQ5-AP-qIH">
                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                    <color key="backgroundColor" name="frostBlue"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="Ocy-L3-z6Y"/>
                                                         <constraint firstAttribute="height" constant="100" id="YAb-z8-dZG"/>
@@ -119,6 +120,13 @@
                                                 <constraint firstAttribute="trailing" secondItem="zgA-kP-aHo" secondAttribute="trailing" id="g0r-9n-xVK"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="animationView" destination="zgA-kP-aHo" id="A2G-QP-VMh"/>
+                                            <outlet property="expiration" destination="pvN-WK-Bde" id="A1s-KW-xgN"/>
+                                            <outlet property="itemImageView" destination="QQ5-AP-qIH" id="prl-D4-bfn"/>
+                                            <outlet property="itemName" destination="jFF-md-qmo" id="8nD-mm-t7R"/>
+                                            <outlet property="quantity" destination="Je0-3b-l6V" id="MF2-jT-QRn"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -145,6 +153,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="filterButton" destination="lfL-zY-SP3" id="m42-Dm-seh"/>
+                        <outlet property="tableView" destination="t3Q-e2-INW" id="eeK-hg-4Sb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -187,6 +196,7 @@
     </scenes>
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
+        <image name="fridgy" width="68" height="34"/>
         <image name="plus.circle" catalog="system" width="128" height="123"/>
         <namedColor name="frostBlue">
             <color red="0.61299997568130493" green="0.84500002861022949" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

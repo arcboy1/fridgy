@@ -13,12 +13,24 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var filterButton: UIButton!
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    
     //MARK: PROPERTIES
+    var fridgeStore=FridgeStore()
+    
+    var dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "dd/MM/yyyy"
+        return df
+    }()
     
     //instance of UIPickerView
     let pickerView = UIPickerView()
-
+    
     let filterOptions: [FridgeType] = [.allItems, .drinks, .condiments, .food, .snacks, .fruit, .vegetable, .meat, .dairy, .dessert, .other]
+    
+    //MARK: View methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +38,49 @@ class ViewController: UIViewController {
         pickerView.dataSource = self
         filterButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
         
+        createSnapshot(for: .allItems)
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    
+    
+    //MARK: - Datasource methods
+    private lazy var tableDataSource = UITableViewDiffableDataSource<FridgeType, FridgeItem>(tableView: tableView) { tableView, indexPath, itemIdentifier in
+        let cell = tableView.dequeueReusableCell(withIdentifier: "fridgeCell", for: indexPath) as! CustomTableViewCell
+        
+        // set up cells
+        cell.itemName?.text = itemIdentifier.name
+        cell.quantity?.text = "\(itemIdentifier.quantity)"
+        cell.expiration?.text = "\(self.dateFormatter.string(from: itemIdentifier.expirationDate))"
+        
+        // fetch and assign the image
+        cell.itemImageView?.image = self.fridgeStore.fetchImage(withIdentifier: itemIdentifier.id)
+        
+        
+        return cell
+    }
+    
+    func createSnapshot(for type: FridgeType) {
+        var snapshot = NSDiffableDataSourceSnapshot<FridgeType, FridgeItem>()
+        
+        snapshot.appendSections([type])
+        
+        // filter items based on the selected type
+        let filteredItems: [FridgeItem]
+        if type == .allItems {
+            filteredItems = fridgeStore.allItems // Show all items if "All Items" is selected
+        } else {
+            filteredItems = fridgeStore.allItems.filter { $0.type == type }
+        }
+        
+        // add filtered items to the snapshot for the specified section
+        snapshot.appendItems(filteredItems, toSection: type)
+        
+    
+        tableDataSource.applySnapshotUsingReloadData(snapshot)
     }
     
     
@@ -48,7 +100,9 @@ class ViewController: UIViewController {
             // get the selected FridgeType and set button title to its raw value
             let selectedType = self.filterOptions[selectedRow]
             self.filterButton.setTitle(selectedType.rawValue, for: .normal)
-            // TODO: add filter functionality
+            
+            
+            self.createSnapshot(for: selectedType)
             
         }))
         
