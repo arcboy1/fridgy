@@ -27,28 +27,13 @@ class ExpirationProgressView: UIView {
         // calculate percentage based on max 30 days for full circle
         let percentage = max(min(CGFloat(remainingDays) / CGFloat(maxFreshnessDays), 1), 0) // range from 0 to 1
 
-        // determine color based on two stages: green to yellow, then yellow to red
-        let color: UIColor
-        if percentage > 0.5 {
-            // green to yellow transition (30 to 15 days)
-            let greenToYellow = (percentage - 0.5) * 2 // scale to range 0 to 1
-            color = UIColor(
-                red: 1 - greenToYellow, // increasing red as it approaches yellow
-                green: 1.0,             // fully green at start, decreases as red increases
-                blue: 0,
-                alpha: 1.0
-            )
-        } else {
-            // yellow to red transition (15 to 0 days)
-            let yellowToRed = percentage * 2 // scale to range 0 to 1
-            color = UIColor(
-                red: 1.0,                  // fully red
-                green: yellowToRed,        // decrease green towards red
-                blue: 0,
-                alpha: 1.0
-            )
-        }
-        
+        // set color to transition from green to red based on percentage
+        let color = UIColor(
+            red: (1 - percentage), // increases red as expiration approaches
+            green: percentage,     // decreases green as expiration approaches
+            blue: 0,
+            alpha: 1.0
+        )
         // define circle parameters
         let center = CGPoint(x: rect.width / 2, y: rect.height / 2)
         let radius = min(rect.width, rect.height) / 2 - lineWidth / 2
