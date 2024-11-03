@@ -14,33 +14,36 @@ class ExpirationProgressView: UIView {
     
     //line width for the circle
     private let lineWidth: CGFloat = 8.0
-    
+    //define max days for full freshness (30 days)
+    private let maxFreshnessDays = 30
+
     override func draw(_ rect: CGRect) {
-        guard let startDate = startDate, let expirationDate = expirationDate else { return }
+        guard let expirationDate = expirationDate else { return }
         
-        // calculate total days and remaining days
+        // calculate remaining days relative to the current date
         let calendar = Calendar.current
-        let totalDays = calendar.dateComponents([.day], from: startDate, to: expirationDate).day ?? 0
         let remainingDays = calendar.dateComponents([.day], from: Date(), to: expirationDate).day ?? 0
         
-        // determine the percentage and color based on urgency level
-        let percentage: CGFloat
+        // calculate percentage based on max 30 days for full circle
+        let percentage = max(min(CGFloat(remainingDays) / CGFloat(maxFreshnessDays), 1), 0) // range from 0 to 1
+
+        // determine color based on two stages: green to yellow, then yellow to red
         let color: UIColor
-        
-        if remainingDays <= 3 {
-            // less than 3 days remaining: show urgent
-            percentage = 0.1 
-            color = UIColor.red
-        } else if remainingDays <= 7 {
-            // between 3 and 7 days: show warning
-            percentage = 0.5
-            color = UIColor.yellow
-        } else {
-            // more than 7 days remaining: calculate normally
-            percentage = max(min(CGFloat(remainingDays) / CGFloat(totalDays), 1), 0) // percentage between 0 and 1
+        if percentage > 0.5 {
+            // green to yellow transition (30 to 15 days)
+            let greenToYellow = (percentage - 0.5) * 2 // scale to range 0 to 1
             color = UIColor(
-                red: (1 - percentage),
-                green: percentage,
+                red: 1 - greenToYellow, // increasing red as it approaches yellow
+                green: 1.0,             // fully green at start, decreases as red increases
+                blue: 0,
+                alpha: 1.0
+            )
+        } else {
+            // yellow to red transition (15 to 0 days)
+            let yellowToRed = percentage * 2 // scale to range 0 to 1
+            color = UIColor(
+                red: 1.0,                  // fully red
+                green: yellowToRed,        // decrease green towards red
                 blue: 0,
                 alpha: 1.0
             )
