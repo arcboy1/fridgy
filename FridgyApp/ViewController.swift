@@ -71,6 +71,9 @@ class ViewController: UIViewController {
             cell.itemImageView?.image = UIImage(named: "placeholderimage")
         }
         
+        cell.configureProgress(startDate: itemIdentifier.currentDate, expirationDate: itemIdentifier.expirationDate)
+
+        
         
         return cell
     }

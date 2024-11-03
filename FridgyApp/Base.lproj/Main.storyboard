@@ -69,7 +69,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="7a6-WT-QwK">
-                                                    <rect key="frame" x="105" y="16" width="167" height="68"/>
+                                                    <rect key="frame" x="105" y="16" width="177" height="68"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFF-md-qmo">
                                                             <rect key="frame" x="0.0" y="0.0" width="56.333333333333336" height="25.333333333333332"/>
@@ -139,24 +139,24 @@
                                                     </subviews>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zgA-kP-aHo" customClass="ExpirationProgressView" customModule="FridgyApp" customModuleProvider="target">
-                                                    <rect key="frame" x="277" y="0.0" width="100" height="100"/>
-                                                    <color key="backgroundColor" systemColor="tableCellBlueTextColor"/>
+                                                    <rect key="frame" x="287" y="10" width="80" height="80"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="fDH-Dz-Zla"/>
-                                                        <constraint firstAttribute="height" constant="100" id="ysY-il-KSE"/>
+                                                        <constraint firstAttribute="width" constant="80" id="fDH-Dz-Zla"/>
+                                                        <constraint firstAttribute="height" constant="80" id="ysY-il-KSE"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="7a6-WT-QwK" firstAttribute="top" secondItem="dMn-Cg-ByC" secondAttribute="topMargin" constant="5" id="55O-cJ-C31"/>
-                                                <constraint firstItem="zgA-kP-aHo" firstAttribute="top" secondItem="dMn-Cg-ByC" secondAttribute="top" id="BdL-Ny-Lye"/>
-                                                <constraint firstAttribute="bottom" secondItem="zgA-kP-aHo" secondAttribute="bottom" id="FNb-vk-Idw"/>
+                                                <constraint firstAttribute="trailing" secondItem="zgA-kP-aHo" secondAttribute="trailing" constant="10" id="Gsy-FA-jsz"/>
                                                 <constraint firstItem="QQ5-AP-qIH" firstAttribute="leading" secondItem="dMn-Cg-ByC" secondAttribute="leading" id="Iru-ea-Mwi"/>
                                                 <constraint firstItem="zgA-kP-aHo" firstAttribute="leading" secondItem="7a6-WT-QwK" secondAttribute="trailing" constant="5" id="MAQ-uk-lTc"/>
                                                 <constraint firstItem="7a6-WT-QwK" firstAttribute="leading" secondItem="QQ5-AP-qIH" secondAttribute="trailing" constant="5" id="Ndr-jX-3go"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="7a6-WT-QwK" secondAttribute="bottom" constant="5" id="YYF-fo-aGs"/>
                                                 <constraint firstItem="QQ5-AP-qIH" firstAttribute="top" secondItem="dMn-Cg-ByC" secondAttribute="top" id="azK-SU-yT6"/>
-                                                <constraint firstAttribute="trailing" secondItem="zgA-kP-aHo" secondAttribute="trailing" id="g0r-9n-xVK"/>
+                                                <constraint firstAttribute="bottom" secondItem="zgA-kP-aHo" secondAttribute="bottom" constant="10" id="h1j-bW-IVr"/>
+                                                <constraint firstItem="zgA-kP-aHo" firstAttribute="top" secondItem="dMn-Cg-ByC" secondAttribute="top" constant="10" id="tYZ-OX-haM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -246,9 +246,6 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="tableCellBlueTextColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
