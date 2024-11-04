@@ -69,7 +69,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="7a6-WT-QwK">
-                                                    <rect key="frame" x="105" y="16" width="177" height="68"/>
+                                                    <rect key="frame" x="104.99999999999999" y="16" width="129.66666666666663" height="68"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFF-md-qmo">
                                                             <rect key="frame" x="0.0" y="0.0" width="56.333333333333336" height="25.333333333333332"/>
@@ -142,24 +142,22 @@
                                                     </constraints>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zgA-kP-aHo" customClass="ExpirationProgressView" customModule="FridgyApp" customModuleProvider="target">
-                                                    <rect key="frame" x="287" y="10" width="80" height="80"/>
+                                                    <rect key="frame" x="317" y="25" width="50" height="50"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="fDH-Dz-Zla"/>
+                                                        <constraint firstAttribute="height" constant="50" id="eh6-Jt-Te5"/>
+                                                        <constraint firstAttribute="width" constant="50" id="fDH-Dz-Zla"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="zgA-kP-aHo" firstAttribute="height" relation="greaterThanOrEqual" secondItem="dMn-Cg-ByC" secondAttribute="height" multiplier="0.8" id="1kW-kT-nv7"/>
                                                 <constraint firstItem="7a6-WT-QwK" firstAttribute="top" secondItem="dMn-Cg-ByC" secondAttribute="topMargin" constant="5" id="55O-cJ-C31"/>
                                                 <constraint firstAttribute="trailing" secondItem="zgA-kP-aHo" secondAttribute="trailing" constant="10" id="Gsy-FA-jsz"/>
                                                 <constraint firstItem="QQ5-AP-qIH" firstAttribute="leading" secondItem="dMn-Cg-ByC" secondAttribute="leading" id="Iru-ea-Mwi"/>
-                                                <constraint firstItem="zgA-kP-aHo" firstAttribute="leading" secondItem="7a6-WT-QwK" secondAttribute="trailing" constant="5" id="MAQ-uk-lTc"/>
                                                 <constraint firstItem="7a6-WT-QwK" firstAttribute="leading" secondItem="QQ5-AP-qIH" secondAttribute="trailing" constant="5" id="Ndr-jX-3go"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="7a6-WT-QwK" secondAttribute="bottom" constant="5" id="YYF-fo-aGs"/>
+                                                <constraint firstItem="zgA-kP-aHo" firstAttribute="centerY" secondItem="dMn-Cg-ByC" secondAttribute="centerY" id="YwP-Bp-jo0"/>
                                                 <constraint firstItem="QQ5-AP-qIH" firstAttribute="top" secondItem="dMn-Cg-ByC" secondAttribute="top" id="azK-SU-yT6"/>
-                                                <constraint firstAttribute="bottom" secondItem="zgA-kP-aHo" secondAttribute="bottom" constant="10" id="h1j-bW-IVr"/>
-                                                <constraint firstItem="zgA-kP-aHo" firstAttribute="top" secondItem="dMn-Cg-ByC" secondAttribute="top" constant="10" id="tYZ-OX-haM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
