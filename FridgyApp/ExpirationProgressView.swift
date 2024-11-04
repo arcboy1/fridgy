@@ -14,7 +14,7 @@ class ExpirationProgressView: UIView {
     
     //line width for the circle
     private let lineWidth: CGFloat = 8.0
-    //define max days for full freshness (30 days)
+    //define max days for full freshness
     private let maxFreshnessDays = 30
 
     override func draw(_ rect: CGRect) {

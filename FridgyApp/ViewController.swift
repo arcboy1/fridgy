@@ -36,22 +36,28 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         let titleLabel = UILabel()
-        titleLabel.text = "Fridge Inventory"
-        titleLabel.font = UIFont(name: "PlaywriteDEGrund-VariableFont_wght", size: 17)
+        titleLabel.text = "Fridgy Inventory"
+
+        if let customFont = UIFont(name: "PlaywriteDEGrund-VariableFont_wght", size: 17) {
+            titleLabel.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: customFont)
+        } else {
+            print("Custom font failed to load")
+        }
+
         titleLabel.textColor = .white
         
         navigationItem.titleView = titleLabel
         super.viewDidLoad()
         pickerView.delegate = self
         pickerView.dataSource = self
-        filterButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
-        
+        setupFilterMenu()
         createSnapshot(for: .allItems)
         
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+    
     
     
     
@@ -101,26 +107,19 @@ class ViewController: UIViewController {
     
     
     //method that displays the UIPickerView when the user selects the button
-    @objc func showPicker() {
-        // creates alert to show picker as action
-        let alertController = UIAlertController(title: "Select Filter", message: "\n\n\n\n\n\n", preferredStyle: .actionSheet)
+    func setupFilterMenu() {
+        // create actions for each filter option
+        let actions = filterOptions.map { type in
+            UIAction(title: type.rawValue, handler: { _ in
+                self.filterButton.setTitle(type.rawValue, for: .normal)
+                self.createSnapshot(for: type)
+            })
+        }
         
-        // add the pickerView as a subview of the alert
-        pickerView.frame = CGRect(x: 0, y: 50, width: alertController.view.bounds.width, height: 150)
-        alertController.view.addSubview(pickerView)
-        
-        alertController.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
-            let selectedRow = self.pickerView.selectedRow(inComponent: 0)
-            
-            // get the selected FridgeType and set button title to its raw value
-            let selectedType = self.filterOptions[selectedRow]
-            self.filterButton.setTitle(selectedType.rawValue, for: .normal)
-            
-            self.createSnapshot(for: selectedType)
-            
-        }))
-        
-        present(alertController, animated: true, completion: nil)
+        // create menu with the actions
+        let menu = UIMenu(title: "Select Filter", children: actions)
+        filterButton.menu = menu
+        filterButton.showsMenuAsPrimaryAction = true // Show menu on tap
     }
     
 

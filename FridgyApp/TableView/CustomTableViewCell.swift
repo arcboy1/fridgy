@@ -29,7 +29,7 @@ class CustomTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         //rounded corners for cell
-        self.layer.cornerRadius = 20
+        self.layer.cornerRadius = 30
         self.layer.masksToBounds = true
 
         //round corners of image view

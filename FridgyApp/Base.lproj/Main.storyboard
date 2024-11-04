@@ -137,17 +137,20 @@
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="ru8-3G-ffp" firstAttribute="top" secondItem="7a6-WT-QwK" secondAttribute="top" constant="48.666666666666671" id="fjU-rz-LFC"/>
+                                                    </constraints>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zgA-kP-aHo" customClass="ExpirationProgressView" customModule="FridgyApp" customModuleProvider="target">
                                                     <rect key="frame" x="287" y="10" width="80" height="80"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="fDH-Dz-Zla"/>
-                                                        <constraint firstAttribute="height" constant="80" id="ysY-il-KSE"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="zgA-kP-aHo" firstAttribute="height" relation="greaterThanOrEqual" secondItem="dMn-Cg-ByC" secondAttribute="height" multiplier="0.8" id="1kW-kT-nv7"/>
                                                 <constraint firstItem="7a6-WT-QwK" firstAttribute="top" secondItem="dMn-Cg-ByC" secondAttribute="topMargin" constant="5" id="55O-cJ-C31"/>
                                                 <constraint firstAttribute="trailing" secondItem="zgA-kP-aHo" secondAttribute="trailing" constant="10" id="Gsy-FA-jsz"/>
                                                 <constraint firstItem="QQ5-AP-qIH" firstAttribute="leading" secondItem="dMn-Cg-ByC" secondAttribute="leading" id="Iru-ea-Mwi"/>
