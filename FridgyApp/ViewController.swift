@@ -13,7 +13,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var filterButton: UIButton!
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     
     
     //MARK: PROPERTIES
@@ -50,6 +51,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         pickerView.delegate = self
         pickerView.dataSource = self
+        collectionView.delegate=self
         setupFilterMenu()
         createSnapshot(for: .allItems)
         
@@ -62,47 +64,42 @@ class ViewController: UIViewController {
     
     
     //MARK: - Datasource methods
-    private lazy var tableDataSource = UITableViewDiffableDataSource<FridgeType, FridgeItem>(tableView: tableView) { tableView, indexPath, itemIdentifier in
-        let cell = tableView.dequeueReusableCell(withIdentifier: "fridgeCell", for: indexPath) as! CustomTableViewCell
-        
-        // set up cells
-        cell.itemName?.text = itemIdentifier.name
-        cell.quantity?.text = "\(itemIdentifier.quantity)"
-        cell.expiration?.text = "\(self.dateFormatter.string(from: itemIdentifier.expirationDate))"
-        
-        // fetch and assign the image
-        if let itemImage = self.fridgeStore.fetchImage(withIdentifier: itemIdentifier.id) {
-            cell.itemImageView?.image = itemImage
-        } else {
-            cell.itemImageView?.image = UIImage(named: "placeholderimage")
+    private lazy var collectionViewDataSource = UICollectionViewDiffableDataSource<FridgeType, FridgeItem>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "fridgeCell", for: indexPath) as! CustomCollectionViewCell
+            
+            // set up cells
+            cell.itemName.text = itemIdentifier.name
+            cell.quantity.text = "\(itemIdentifier.quantity)"
+            
+            // Fetch and assign the image
+            if let itemImage = self.fridgeStore.fetchImage(withIdentifier: itemIdentifier.id) {
+                cell.itemImageView.image = itemImage
+            } else {
+                cell.itemImageView.image = UIImage(named: "placeholderimage")
+            }
+            
+            cell.configureProgress(startDate: itemIdentifier.currentDate, expirationDate: itemIdentifier.expirationDate)
+            
+            return cell
         }
-        
-        cell.configureProgress(startDate: itemIdentifier.currentDate, expirationDate: itemIdentifier.expirationDate)
-
-        
-        
-        return cell
-    }
     
     func createSnapshot(for type: FridgeType) {
-        var snapshot = NSDiffableDataSourceSnapshot<FridgeType, FridgeItem>()
-        
-        snapshot.appendSections([type])
-        
-        // filter items based on the selected type
-        let filteredItems: [FridgeItem]
-        if type == .allItems {
-            filteredItems = fridgeStore.allItems //default all items
-        } else {
-            filteredItems = fridgeStore.allItems.filter { $0.type == type }
+            var snapshot = NSDiffableDataSourceSnapshot<FridgeType, FridgeItem>()
+            snapshot.appendSections([type])
+            
+            // filter items based on the selected type
+            let filteredItems: [FridgeItem]
+            if type == .allItems {
+                filteredItems = fridgeStore.allItems // default to all items
+            } else {
+                filteredItems = fridgeStore.allItems.filter { $0.type == type }
+            }
+            
+            // add filtered items to the snapshot for the specified section
+            snapshot.appendItems(filteredItems, toSection: type)
+            
+            collectionViewDataSource.apply(snapshot, animatingDifferences: true)
         }
-        
-        // add filtered items to the snapshot for the specified section
-        snapshot.appendItems(filteredItems, toSection: type)
-        
-    
-        tableDataSource.applySnapshotUsingReloadData(snapshot)
-    }
     
     
     
@@ -143,4 +140,50 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return filterOptions[row].rawValue
         }
+}
+
+
+//MARK: - Extension Methods
+
+//sets layout for collectionview cells
+extension ViewController: UICollectionViewDelegateFlowLayout {
+    
+    // no space between rows
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    // space between items
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    // calculate size for each cell
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numberOfItemsPerRow: CGFloat = 2
+        let interItemSpacing: CGFloat = 10
+        
+        let totalWidth = collectionView.frame.width
+
+        let totalSpacing = (numberOfItemsPerRow - 1) * interItemSpacing
+        
+        let availableWidth = totalWidth - totalSpacing
+        
+        let itemWidth = availableWidth / numberOfItemsPerRow
+        
+        return CGSize(width: itemWidth, height: itemWidth)
+    }
+}
+
+extension ViewController: UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // deselect the item immediately after it's tapped
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+   
 }

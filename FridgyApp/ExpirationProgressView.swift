@@ -34,7 +34,7 @@ class ExpirationProgressView: UIView {
             color = UIColor.green // fresh
         case 8..<15:
             color = UIColor.yellow // approaching expiry
-        case 3..<8:
+        case 4..<8:
             color = UIColor.orange // warning expiry
         default:
             color = UIColor.red // almost expired
