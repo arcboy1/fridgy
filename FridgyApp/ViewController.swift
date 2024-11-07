@@ -81,7 +81,7 @@ class ViewController: UIViewController {
         if let itemImage = self.fridgeStore.fetchImage(withIdentifier: itemIdentifier.id) {
             cell.itemImageView.image = itemImage
         } else {
-            cell.itemImageView.image = UIImage(named: "placeholderimage")
+            cell.itemImageView.image = UIImage(named: "selectimage")
         }
         
         cell.configureProgress(startDate: itemIdentifier.currentDate, expirationDate: itemIdentifier.expirationDate)
@@ -109,11 +109,22 @@ class ViewController: UIViewController {
     
     //MARK: NAVIGATION
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "addItem" {
-                if let addVC = segue.destination as? AddViewController {
-                    addVC.fridgeStore = fridgeStore
+        guard let destination = segue.destination as? AddViewController else { return }
+        destination.fridgeStore=fridgeStore
+        if segue.identifier == "showDetail" {
+                // Get the selected index path from the collection view
+                if let indexPath = collectionView.indexPathsForSelectedItems?.first {
+                    // Access the snapshot from the data source
+                    let snapshot = collectionViewDataSource.snapshot()
+                    
+                    // Get the item for the selected index path
+                    let item = snapshot.itemIdentifiers[indexPath.item]
+                    
+                    // Pass the selected item to the destination
+                    destination.passedItem = item
                 }
             }
+
         }
     
     

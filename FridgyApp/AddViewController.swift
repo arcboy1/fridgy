@@ -11,6 +11,8 @@ class AddViewController: UIViewController {
     //MARK: PROPERTIES
     var fridgeStore: FridgeStore!
     var expiry=Date()
+    var passedItem:FridgeItem?
+
     
     let filterOptions: [FridgeType] = [.drinks, .condiments, .food, .snacks, .fruit, .vegetable, .meat, .dairy, .dessert, .other]
     
@@ -96,6 +98,23 @@ class AddViewController: UIViewController {
         imageView.isUserInteractionEnabled=true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(importPicture))
         imageView.addGestureRecognizer(tapGesture)
+        
+        //initialize passed item to proper fields
+        if let passedItem = passedItem {
+            nameField.text = passedItem.name
+            quantityField.text = "\(passedItem.quantity)"
+            datePicker.date = passedItem.expirationDate
+            notes.text = passedItem.details
+            
+            // fetch the image for the passed item
+            if let fetchedImage = fridgeStore.fetchImage(withIdentifier: passedItem.id) {
+                imageView.image = fetchedImage
+            } else {
+                imageView.image = UIImage(named: "selectimage") // set default image if none found
+            }
+
+            filterButton.setTitle(passedItem.type.rawValue, for: .normal)
+        }
     }
     
     //MARK: CAMERA AND PHOTO LIBRARY
@@ -135,7 +154,7 @@ class AddViewController: UIViewController {
     private func setupUI() {
         self.navigationController?.navigationBar.tintColor = UIColor(named: "darkBlue")
         //round corners and add borders
-        notes.layer.cornerRadius = 40
+        notes.layer.cornerRadius = 30
         notes.layer.masksToBounds = true
         
         nameField.layer.cornerRadius = 15

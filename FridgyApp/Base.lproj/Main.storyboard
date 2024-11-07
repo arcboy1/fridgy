@@ -111,6 +111,7 @@
                                             <outlet property="itemImageView" destination="fDe-Q3-BOn" id="0KO-VT-gkb"/>
                                             <outlet property="itemName" destination="fyC-cP-6qJ" id="PPJ-jp-I1I"/>
                                             <outlet property="quantity" destination="xoq-6F-u0B" id="cck-Bo-fpS"/>
+                                            <segue destination="maw-tQ-94Z" kind="show" identifier="showDetail" id="8mN-YY-o3W"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -327,6 +328,9 @@
             <point key="canvasLocation" x="130.53435114503816" y="-27.464788732394368"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="8mN-YY-o3W"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="placeholderimage" width="612" height="612"/>
