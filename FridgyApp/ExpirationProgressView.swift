@@ -57,5 +57,18 @@ class ExpirationProgressView: UIView {
         color.setStroke()
         progressPath.lineWidth = lineWidth
         progressPath.stroke()
+        
+        if remainingDays < 0 {
+            drawExclamationMark(at: center, in: rect)
+        }
+    }
+    private func drawExclamationMark(at center: CGPoint, in rect: CGRect) {
+        guard let image = UIImage(systemName: "exclamationmark.triangle.fill")?.withTintColor(.red) else { return }
+        
+        let imageSize = CGSize(width: 25, height: 25) // size of the symbol
+        let imageOrigin = CGPoint(x: center.x - imageSize.width / 2, y: center.y - imageSize.height / 2)
+
+        // draw the symbol in the context
+        image.draw(in: CGRect(origin: imageOrigin, size: imageSize))
     }
 }

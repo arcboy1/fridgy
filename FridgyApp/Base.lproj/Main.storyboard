@@ -273,7 +273,7 @@
                                 </constraints>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="selectimage" translatesAutoresizingMaskIntoConstraints="NO" id="rZK-T6-CDy">
-                                <rect key="frame" x="111" y="115" width="170" height="170"/>
+                                <rect key="frame" x="111.66666666666669" y="115" width="170" height="170"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="170" id="658-un-4r7"/>
                                     <constraint firstAttribute="height" constant="170" id="9Y4-BJ-CoQ"/>
@@ -284,9 +284,8 @@
                         <color key="backgroundColor" name="frostBlue"/>
                         <constraints>
                             <constraint firstItem="Djl-sq-yY4" firstAttribute="top" secondItem="rZK-T6-CDy" secondAttribute="bottom" constant="28" id="5wk-E8-CbI"/>
-                            <constraint firstItem="Ew1-st-oX9" firstAttribute="trailing" secondItem="rZK-T6-CDy" secondAttribute="trailing" constant="112" id="Owf-WD-zvI"/>
-                            <constraint firstItem="rZK-T6-CDy" firstAttribute="leading" secondItem="Ew1-st-oX9" secondAttribute="leading" constant="111" id="RVf-vQ-LH0"/>
                             <constraint firstItem="rZK-T6-CDy" firstAttribute="top" secondItem="Ew1-st-oX9" secondAttribute="top" constant="12" id="Tbe-s7-HKb"/>
+                            <constraint firstItem="rZK-T6-CDy" firstAttribute="centerX" secondItem="Djl-sq-yY4" secondAttribute="centerX" id="aQY-iu-Gl5"/>
                             <constraint firstItem="Djl-sq-yY4" firstAttribute="leading" secondItem="Ew1-st-oX9" secondAttribute="leading" constant="20" id="lb1-xN-CQY"/>
                             <constraint firstItem="Ew1-st-oX9" firstAttribute="trailing" secondItem="Djl-sq-yY4" secondAttribute="trailing" constant="20" id="sTX-7J-vkC"/>
                             <constraint firstItem="Ew1-st-oX9" firstAttribute="bottom" secondItem="Djl-sq-yY4" secondAttribute="bottom" constant="20" id="xyr-dm-6tD"/>

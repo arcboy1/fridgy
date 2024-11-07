@@ -34,6 +34,7 @@ class AddViewController: UIViewController {
     }
     
     @IBAction func typeButtonClicked(_ sender: UIButton) {
+        print("Filter button clicked")
         let actions = filterOptions.map { type in
             UIAction(title: type.rawValue, handler: { _ in
                 self.filterButton.setTitle(type.rawValue, for: .normal)
