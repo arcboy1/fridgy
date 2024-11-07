@@ -93,7 +93,8 @@ class AddViewController: UIViewController {
             // save changes to the fridge store
             fridgeStore.saveItems()
             
-            //TODO: update notifications here
+            //update notifications
+            scheduleNotifications(for: passedItem)
             
         } else {
             // create a new FridgeItem if were not editing/updating
@@ -106,6 +107,9 @@ class AddViewController: UIViewController {
 
             // add the new item to the fridge store
             fridgeStore.addNewItem(item: newItem)
+            
+            //add notification
+            scheduleNotifications(for: newItem)
         }
 
         // navigate back to the previous screen
@@ -196,6 +200,67 @@ class AddViewController: UIViewController {
         let alert = UIAlertController(title: NSLocalizedString("Missing information", comment: "missingText"), message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel))
         present(alert, animated: true)
+    }
+    
+    //MARK: NAVIGATION
+    func scheduleNotifications(for item: FridgeItem) {
+        let center = UNUserNotificationCenter.current()
+
+        // remove previous notifications for this item
+        center.getPendingNotificationRequests { requests in
+            let identifiersToRemove = requests.compactMap { request -> String? in
+                return request.identifier.hasPrefix(item.id) ? request.identifier : nil
+            }
+            center.removePendingNotificationRequests(withIdentifiers: identifiersToRemove)
+        }
+
+        // check if the item is expired
+        guard item.expirationDate > Date() else {
+            print("cannot schedule notifications: item has already expired.")
+            return
+        }
+
+        // schedule expiration notification
+        let expirationContent = UNMutableNotificationContent()
+        expirationContent.title = "Item Expired"
+        expirationContent.body = "The item '\(item.name)' has expired."
+        expirationContent.sound = .default
+
+        let expirationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: item.expirationDate.timeIntervalSinceNow, repeats: false)
+        let expirationRequest = UNNotificationRequest(identifier: "\(item.id)_expiration", content: expirationContent, trigger: expirationTrigger)
+
+        // schedule nearing expiration notification (3 days before expiration)
+        let nearingExpirationContent = UNMutableNotificationContent()
+        nearingExpirationContent.title = "Item Expiration Reminder"
+        nearingExpirationContent.body = "The item '\(item.name)' is close to expiring in 3 days."
+        nearingExpirationContent.sound = .default
+
+        let threeDaysBefore = Calendar.current.date(byAdding: .day, value: -3, to: item.expirationDate)
+        // check if three days before is in the future
+        guard let threeDaysBefore = threeDaysBefore, threeDaysBefore > Date() else {
+            print("cannot schedule nearing expiration notification: item is expiring within 3 days.")
+            return
+        }
+
+        let nearingExpirationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: threeDaysBefore.timeIntervalSinceNow, repeats: false)
+        let nearingExpirationRequest = UNNotificationRequest(identifier: "\(item.id)_nearing_expiration", content: nearingExpirationContent, trigger: nearingExpirationTrigger)
+
+        // schedule the requests
+        center.add(expirationRequest) { error in
+            if let error = error {
+                print("error scheduling expiration notification: \(error.localizedDescription)")
+            } else {
+                print("expiration notification scheduled successfully")
+            }
+        }
+
+        center.add(nearingExpirationRequest) { error in
+            if let error = error {
+                print("error scheduling nearing expiration notification: \(error.localizedDescription)")
+            } else {
+                print("nearing expiration notification scheduled successfully")
+            }
+        }
     }
 
 }

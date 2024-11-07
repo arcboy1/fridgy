@@ -61,12 +61,29 @@ class ViewController: UIViewController {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
         collectionView.addGestureRecognizer(longPressGesture)
         
+        let center = UNUserNotificationCenter.current()
+
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            if granted {
+                print("Access for notifications is granted")
+            } else {
+                print("Notifications permission denied")
+            }
+            
+            if let error = error {
+                print("Error requesting notifications permissions: \(error.localizedDescription)")
+            }
+        }
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         createSnapshot(for: .allItems)
         }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        collectionView.reloadData()
+    }
     
     
     //MARK: - Datasource methods
@@ -75,7 +92,7 @@ class ViewController: UIViewController {
         
         // set up cells
         cell.itemName.text = itemIdentifier.name
-        cell.quantity.text = "\(itemIdentifier.quantity)"
+        cell.quantity.text = "Quantity: \(itemIdentifier.quantity)"
         
         // fetch and assign the image
         if let itemImage = self.fridgeStore.fetchImage(withIdentifier: itemIdentifier.id) {
@@ -126,6 +143,7 @@ class ViewController: UIViewController {
             }
 
         }
+    
     
     
 
