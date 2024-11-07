@@ -18,6 +18,7 @@ class AddViewController: UIViewController {
     
     
     //MARK: OUTLETS
+    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var nameField: UITextField!
@@ -75,16 +76,37 @@ class AddViewController: UIViewController {
         // get the notes text
         let notesText = notes.text ?? ""
 
-        // create a new fridgeitem
-        let newItem = FridgeItem(name: name, quantity: quantity, currentDate: Date(), expirationDate: selectedDate, details: notesText, type: selectedType)
+        // handle the item update or creation logic
+        if let passedItem = passedItem {
+            // update existing item
+            passedItem.name = name
+            passedItem.quantity = quantity
+            passedItem.expirationDate = selectedDate
+            passedItem.details = notesText
+            passedItem.type = selectedType
 
-        // save the image if one has been selected
-        if let image = imageView.image {
-            fridgeStore.saveImage(image: image, withIdentifier: newItem.id)
+            // update the image if one has been selected
+            if let image = imageView.image {
+                fridgeStore.saveImage(image: image, withIdentifier: passedItem.id)
+            }
+
+            // save changes to the fridge store
+            fridgeStore.saveItems()
+            
+            //TODO: update notifications here
+            
+        } else {
+            // create a new FridgeItem if were not editing/updating
+            let newItem = FridgeItem(name: name, quantity: quantity, currentDate: Date(), expirationDate: selectedDate, details: notesText, type: selectedType)
+
+            // save the image if one has been selected
+            if let image = imageView.image {
+                fridgeStore.saveImage(image: image, withIdentifier: newItem.id)
+            }
+
+            // add the new item to the fridge store
+            fridgeStore.addNewItem(item: newItem)
         }
-
-        // add the new item to the fridge store
-        fridgeStore.addNewItem(item: newItem)
 
         // navigate back to the previous screen
         navigationController?.popViewController(animated: true)
@@ -105,7 +127,7 @@ class AddViewController: UIViewController {
             quantityField.text = "\(passedItem.quantity)"
             datePicker.date = passedItem.expirationDate
             notes.text = passedItem.details
-            
+            addButton.setTitle("Update Item", for: .normal)
             // fetch the image for the passed item
             if let fetchedImage = fridgeStore.fetchImage(withIdentifier: passedItem.id) {
                 imageView.image = fetchedImage

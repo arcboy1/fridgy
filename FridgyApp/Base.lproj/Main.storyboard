@@ -294,6 +294,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Rkh-eY-0Jj"/>
                     <connections>
+                        <outlet property="addButton" destination="uW4-9n-4L1" id="VJW-Yf-zab"/>
                         <outlet property="datePicker" destination="lME-7F-1ie" id="Coo-UU-XRf"/>
                         <outlet property="filterButton" destination="K6R-gJ-fK9" id="dKZ-QT-ESX"/>
                         <outlet property="imageView" destination="rZK-T6-CDy" id="RrL-FZ-LIq"/>
