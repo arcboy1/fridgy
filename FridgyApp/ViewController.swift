@@ -48,19 +48,6 @@ class ViewController: UIViewController {
     //MARK: View methods
 
     override func viewDidLoad() {
-        
-        let titleLabel = UILabel()
-        titleLabel.text = "Fridgy Inventory"
-
-        if let customFont = UIFont(name: "PlaywriteDEGrund-VariableFont_wght", size: 17) {
-            titleLabel.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: customFont)
-        } else {
-            print("Custom font failed to load")
-        }
-
-        titleLabel.textColor = .white
-        
-        navigationItem.titleView = titleLabel
         super.viewDidLoad()
         pickerView.delegate = self
         pickerView.dataSource = self

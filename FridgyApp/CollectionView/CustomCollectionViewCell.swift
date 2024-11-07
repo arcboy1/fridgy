@@ -26,7 +26,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
         self.layer.masksToBounds = true
         
         self.layer.borderColor = UIColor.white.cgColor
-        self.layer.borderWidth = 2.0
+        self.layer.borderWidth = 1.0
 
     }
 

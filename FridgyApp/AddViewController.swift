@@ -34,48 +34,65 @@ class AddViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        imageView.isUserInteractionEnabled = true
+        setupUI()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(importPicture))
         imageView.addGestureRecognizer(tapGesture)
     }
+    
+    //MARK: Camera and Photo Library
 
     // method to import a picture from the camera or photo library
     @objc func importPicture() {
-        let picker = UIImagePickerController()
+        let imagePicker = UIImagePickerController()
         
-        // check if the camera is available
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            // present action sheet to choose between Camera and Photo Library
-            let alertController = UIAlertController(title: "Select Image Source", message: nil, preferredStyle: .actionSheet)
-            
-            alertController.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
-                picker.sourceType = .camera
-                picker.allowsEditing = true
-                picker.delegate = self
-                self.present(picker, animated: true)
-            }))
-            
-            alertController.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { _ in
-                picker.sourceType = .photoLibrary
-                picker.allowsEditing = true
-                picker.delegate = self
-                self.present(picker, animated: true)
-            }))
-            
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            
-            present(alertController, animated: true, completion: nil)
-        } else {
-            //default to photo library
-            picker.sourceType = .photoLibrary
-            picker.allowsEditing = true
-            picker.delegate = self
-            present(picker, animated: true)
+        imagePicker.allowsEditing = true
+        
+        imagePicker.delegate = self
+        
+        //present action sheet to choose between camera or photo library
+        let actionSheet = UIAlertController(title: "Select Image Source", message: nil, preferredStyle: .actionSheet)
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            let cameraAction = UIAlertAction(title: "Camera", style: .default){[weak self] _ in
+                
+                imagePicker.sourceType = .camera
+                self?.present(imagePicker, animated:  true)
+            }
+            actionSheet.addAction(cameraAction)
         }
+        
+        let photoLibrary = UIAlertAction(title: "Photo Library", style: .default){ [weak self] _ in
+            imagePicker.sourceType = .photoLibrary
+            self?.present(imagePicker, animated:  true)
+            
+        }
+        
+        actionSheet.addAction(photoLibrary)
+        
+        present(actionSheet, animated: true)
+    }
+    
+    //MARK: UI Setup
+    private func setupUI() {
+        //round corners and add borders
+        notes.layer.cornerRadius = 40
+        notes.layer.masksToBounds = true
+        
+        nameField.layer.cornerRadius = 15
+        nameField.layer.masksToBounds = true
+        
+        quantityField.layer.cornerRadius = 15
+        quantityField.layer.masksToBounds = true
+        
+        imageView.layer.cornerRadius = 10
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.borderWidth = 2.0
     }
 
 }
+
+//MARK: Extension Methods
 extension AddViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // delegate method for when an image is picked
 
@@ -84,8 +101,5 @@ extension AddViewController: UIImagePickerControllerDelegate, UINavigationContro
         dismiss(animated: true)
         imageView.image = image // set the selected image to the imageView
     }
-    // delegate method for when the user cancels the picker
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true)
-    }
+   
 }
