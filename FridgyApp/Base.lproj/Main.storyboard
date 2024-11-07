@@ -135,7 +135,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Add Item" image="plus.app.fill" catalog="system" id="O3V-18-DUF">
                             <color key="tintColor" name="mintGreen"/>
                             <connections>
-                                <segue destination="maw-tQ-94Z" kind="show" id="aFZ-AJ-1ZV"/>
+                                <segue destination="maw-tQ-94Z" kind="show" identifier="addItem" id="aFZ-AJ-1ZV"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

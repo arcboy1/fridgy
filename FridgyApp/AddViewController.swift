@@ -9,7 +9,7 @@ import UIKit
 
 class AddViewController: UIViewController {
     //MARK: PROPERTIES
-    var fridgeStore = FridgeStore()
+    var fridgeStore: FridgeStore!
     var expiry=Date()
     
     let filterOptions: [FridgeType] = [.drinks, .condiments, .food, .snacks, .fruit, .vegetable, .meat, .dairy, .dessert, .other]

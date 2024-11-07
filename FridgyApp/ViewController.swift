@@ -107,6 +107,15 @@ class ViewController: UIViewController {
         collectionViewDataSource.apply(snapshot, animatingDifferences: true)
     }
     
+    //MARK: NAVIGATION
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "addItem" {
+                if let addVC = segue.destination as? AddViewController {
+                    addVC.fridgeStore = fridgeStore
+                }
+            }
+        }
+    
     
 
 }
