@@ -11,6 +11,7 @@
 		A13F61F92CD6C96600AD67E6 /* FridgeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13F61F82CD6C96600AD67E6 /* FridgeStore.swift */; };
 		A13F62002CD6F19500AD67E6 /* ExpirationProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13F61FF2CD6F19500AD67E6 /* ExpirationProgressView.swift */; };
 		A15828FA2CDC1BBD002C6F6F /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15828F92CDC1BBD002C6F6F /* CustomCollectionViewCell.swift */; };
+		A1E2430F2CDC662A008D5303 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E2430E2CDC662A008D5303 /* AddViewController.swift */; };
 		A1F96C562CA4E01C00B9D399 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F96C552CA4E01C00B9D399 /* AppDelegate.swift */; };
 		A1F96C582CA4E01C00B9D399 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F96C572CA4E01C00B9D399 /* SceneDelegate.swift */; };
 		A1F96C5A2CA4E01C00B9D399 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F96C592CA4E01C00B9D399 /* ViewController.swift */; };
@@ -25,6 +26,7 @@
 		A13F61F82CD6C96600AD67E6 /* FridgeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeStore.swift; sourceTree = "<group>"; };
 		A13F61FF2CD6F19500AD67E6 /* ExpirationProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpirationProgressView.swift; sourceTree = "<group>"; };
 		A15828F92CDC1BBD002C6F6F /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		A1E2430E2CDC662A008D5303 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		A1F96C522CA4E01C00B9D399 /* FridgyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FridgyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1F96C552CA4E01C00B9D399 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1F96C572CA4E01C00B9D399 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				A1F96C552CA4E01C00B9D399 /* AppDelegate.swift */,
 				A1F96C572CA4E01C00B9D399 /* SceneDelegate.swift */,
 				A1F96C592CA4E01C00B9D399 /* ViewController.swift */,
+				A1E2430E2CDC662A008D5303 /* AddViewController.swift */,
 				A13F61FF2CD6F19500AD67E6 /* ExpirationProgressView.swift */,
 				A13F61FB2CD6CD5600AD67E6 /* Persistance */,
 				A1F96C5B2CA4E01C00B9D399 /* Main.storyboard */,
@@ -188,6 +191,7 @@
 			files = (
 				A13F61F92CD6C96600AD67E6 /* FridgeStore.swift in Sources */,
 				A13F62002CD6F19500AD67E6 /* ExpirationProgressView.swift in Sources */,
+				A1E2430F2CDC662A008D5303 /* AddViewController.swift in Sources */,
 				A1F96C5A2CA4E01C00B9D399 /* ViewController.swift in Sources */,
 				A15828FA2CDC1BBD002C6F6F /* CustomCollectionViewCell.swift in Sources */,
 				A1F96C562CA4E01C00B9D399 /* AppDelegate.swift in Sources */,
@@ -344,6 +348,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78K56483WK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FridgyApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -351,6 +356,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -371,6 +377,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78K56483WK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FridgyApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -378,6 +385,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
