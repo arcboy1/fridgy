@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter food/drinks:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbl-2z-j8w">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbl-2z-j8w">
                                 <rect key="frame" x="0.0" y="103" width="393" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" name="darkBlue"/>
@@ -43,16 +43,16 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lPF-dz-8cQ">
                                 <rect key="frame" x="10" y="171.33333333333331" width="373" height="636.66666666666674"/>
                                 <color key="backgroundColor" name="frostBlue"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MNE-Nc-Oyc">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="5" sectionInsetReference="layoutMargins" id="MNE-Nc-Oyc">
                                     <size key="itemSize" width="170" height="170"/>
-                                    <size key="estimatedItemSize" width="178" height="209"/>
+                                    <size key="estimatedItemSize" width="170" height="170"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="fridgeCell" id="4sY-Ui-E7q" customClass="CustomCollectionViewCell" customModule="FridgyApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
+                                        <rect key="frame" x="8" y="8" width="170" height="170"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wW8-oa-Xkf">
                                             <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
@@ -196,23 +196,23 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="VfJ-H6-YJQ">
-                                        <rect key="frame" x="0.0" y="84" width="353" height="38"/>
+                                        <rect key="frame" x="0.0" y="84" width="353" height="34.333333333333343"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsR-4o-9pg">
-                                                <rect key="frame" x="0.0" y="0.0" width="42" height="38"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="42" height="34.333333333333336"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="darkBlue"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K6R-gJ-fK9">
-                                                <rect key="frame" x="70" y="0.0" width="283" height="38"/>
+                                                <rect key="frame" x="70" y="0.0" width="283" height="34.333333333333336"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" image="chevron.down" catalog="system" imagePlacement="trailing" title="All Items" cornerStyle="capsule">
+                                                <buttonConfiguration key="configuration" style="filled" image="chevron.down" catalog="system" imagePlacement="trailing" title="Select Type" cornerStyle="capsule">
                                                     <backgroundConfiguration key="background">
                                                         <color key="backgroundColor" name="darkBlue"/>
                                                         <color key="strokeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </backgroundConfiguration>
-                                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle3"/>
+                                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </buttonConfiguration>
@@ -224,31 +224,34 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expiry Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aO3-7n-Mqe">
-                                        <rect key="frame" x="0.0" y="130" width="353" height="20.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="126.3333333333333" width="353" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="darkBlue"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="lME-7F-1ie">
-                                        <rect key="frame" x="0.0" y="158.33333333333331" width="353" height="50"/>
+                                        <rect key="frame" x="0.0" y="154.66666666666669" width="353" height="50"/>
                                         <color key="backgroundColor" name="frostBlue"/>
                                         <color key="tintColor" name="frostBlue"/>
+                                        <connections>
+                                            <action selector="datePicked:" destination="maw-tQ-94Z" eventType="valueChanged" id="Hi2-AB-O6h"/>
+                                        </connections>
                                     </datePicker>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGL-dL-nxz">
-                                        <rect key="frame" x="0.0" y="216.33333333333337" width="353" height="20.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="212.66666666666663" width="353" height="20.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="darkBlue"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ESY-4C-BXl">
-                                        <rect key="frame" x="0.0" y="244.66666666666663" width="353" height="163"/>
+                                        <rect key="frame" x="0.0" y="241" width="353" height="163"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" name="customGrey"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uW4-9n-4L1">
-                                        <rect key="frame" x="0.0" y="415.66666666666663" width="353" height="69.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="412" width="353" height="73"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Add Item" cornerStyle="capsule">
                                             <backgroundConfiguration key="background">
@@ -292,6 +295,7 @@
                     <navigationItem key="navigationItem" id="Rkh-eY-0Jj"/>
                     <connections>
                         <outlet property="datePicker" destination="lME-7F-1ie" id="Coo-UU-XRf"/>
+                        <outlet property="filterButton" destination="K6R-gJ-fK9" id="dKZ-QT-ESX"/>
                         <outlet property="imageView" destination="rZK-T6-CDy" id="RrL-FZ-LIq"/>
                         <outlet property="nameField" destination="HuK-sx-Oll" id="ouh-dH-zKC"/>
                         <outlet property="notes" destination="ESY-4C-BXl" id="JxU-MU-JIq"/>

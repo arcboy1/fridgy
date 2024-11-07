@@ -8,9 +8,14 @@
 import UIKit
 
 class AddViewController: UIViewController {
+    //MARK: PROPERTIES
+    var fridgeStore = FridgeStore()
+    var expiry=Date()
+    
+    let filterOptions: [FridgeType] = [.drinks, .condiments, .food, .snacks, .fruit, .vegetable, .meat, .dairy, .dessert, .other]
     
     
-    //MARK: Outlets
+    //MARK: OUTLETS
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var nameField: UITextField!
@@ -20,14 +25,66 @@ class AddViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var notes: UITextView!
+    @IBOutlet weak var filterButton: UIButton!
     
-    //MARK: Actions
+    //MARK: ACTIONS
+    
+    @IBAction func datePicked(_ sender: UIDatePicker) {
+        expiry=sender.date
+    }
     
     @IBAction func typeButtonClicked(_ sender: UIButton) {
+        let actions = filterOptions.map { type in
+            UIAction(title: type.rawValue, handler: { _ in
+                self.filterButton.setTitle(type.rawValue, for: .normal)
+            })
+        }
+            
+        // create menu with the actions
+        let menu = UIMenu(title: "Select Filter", children: actions)
+        filterButton.menu = menu
+        filterButton.showsMenuAsPrimaryAction = true
     }
     
     
     @IBAction func addItemClicked(_ sender: UIButton) {
+        // guard statements to validate info
+        guard let name = nameField.text, !name.isEmpty else {
+            showAlertWithMessage(message: "Please enter a name for this item")
+            return
+        }
+
+        guard let quantityText = quantityField.text, let quantity = Int(quantityText), quantity > 0 else {
+            showAlertWithMessage(message: "Please enter a valid quantity")
+            return
+        }
+
+        // get the selected date from the date picker
+        let selectedDate = datePicker.date
+
+        // ensure a type is selected
+        guard let selectedTypeTitle = filterButton.title(for: .normal),
+              let selectedType = FridgeType(rawValue: selectedTypeTitle) else {
+            showAlertWithMessage(message: "Please select a type for this inventory item")
+            return
+        }
+
+        // get the notes text
+        let notesText = notes.text ?? ""
+
+        // create a new fridgeitem
+        let newItem = FridgeItem(name: name, quantity: quantity, currentDate: Date(), expirationDate: selectedDate, details: notesText, type: selectedType)
+
+        // save the image if one has been selected
+        if let image = imageView.image {
+            fridgeStore.saveImage(image: image, withIdentifier: newItem.id)
+        }
+
+        // add the new item to the fridge store
+        fridgeStore.addNewItem(item: newItem)
+
+        // navigate back to the previous screen
+        navigationController?.popViewController(animated: true)
     }
     
     
@@ -35,11 +92,12 @@ class AddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        imageView.isUserInteractionEnabled=true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(importPicture))
         imageView.addGestureRecognizer(tapGesture)
     }
     
-    //MARK: Camera and Photo Library
+    //MARK: CAMERA AND PHOTO LIBRARY
 
     // method to import a picture from the camera or photo library
     @objc func importPicture() {
@@ -72,8 +130,9 @@ class AddViewController: UIViewController {
         present(actionSheet, animated: true)
     }
     
-    //MARK: UI Setup
+    //MARK: UI SETUP
     private func setupUI() {
+        self.navigationController?.navigationBar.tintColor = UIColor(named: "darkBlue")
         //round corners and add borders
         notes.layer.cornerRadius = 40
         notes.layer.masksToBounds = true
@@ -88,6 +147,13 @@ class AddViewController: UIViewController {
         imageView.layer.masksToBounds = true
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.borderWidth = 2.0
+    }
+    
+    //MARK: - ERROR MSGS
+    func showAlertWithMessage(message: String){
+        let alert = UIAlertController(title: NSLocalizedString("Missing information", comment: "missingText"), message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        present(alert, animated: true)
     }
 
 }
