@@ -27,22 +27,65 @@ class AddViewController: UIViewController {
     }
     
     
+    @IBAction func addItemClicked(_ sender: UIButton) {
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        imageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(importPicture))
+        imageView.addGestureRecognizer(tapGesture)
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // method to import a picture from the camera or photo library
+    @objc func importPicture() {
+        let picker = UIImagePickerController()
+        
+        // check if the camera is available
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            // present action sheet to choose between Camera and Photo Library
+            let alertController = UIAlertController(title: "Select Image Source", message: nil, preferredStyle: .actionSheet)
+            
+            alertController.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+                picker.sourceType = .camera
+                picker.allowsEditing = true
+                picker.delegate = self
+                self.present(picker, animated: true)
+            }))
+            
+            alertController.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { _ in
+                picker.sourceType = .photoLibrary
+                picker.allowsEditing = true
+                picker.delegate = self
+                self.present(picker, animated: true)
+            }))
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            present(alertController, animated: true, completion: nil)
+        } else {
+            //default to photo library
+            picker.sourceType = .photoLibrary
+            picker.allowsEditing = true
+            picker.delegate = self
+            present(picker, animated: true)
+        }
     }
-    */
 
+}
+extension AddViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    // delegate method for when an image is picked
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.editedImage] as? UIImage else { return }
+        dismiss(animated: true)
+        imageView.image = image // set the selected image to the imageView
+    }
+    // delegate method for when the user cancels the picker
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
+    }
 }
