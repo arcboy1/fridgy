@@ -15,6 +15,19 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBAction func filterPressed(_ sender: UIButton) {
+        let actions = filterOptions.map { type in
+                UIAction(title: type.rawValue, handler: { _ in
+                    self.filterButton.setTitle(type.rawValue, for: .normal)
+                    self.createSnapshot(for: type)
+                })
+            }
+            
+            // create menu with the actions
+        let menu = UIMenu(title: "Select Filter", children: actions)
+        filterButton.menu = menu
+        filterButton.showsMenuAsPrimaryAction = true
+    }
     
     
     //MARK: PROPERTIES
@@ -52,7 +65,6 @@ class ViewController: UIViewController {
         pickerView.delegate = self
         pickerView.dataSource = self
         collectionView.delegate=self
-        setupFilterMenu()
         createSnapshot(for: .allItems)
         
     }
@@ -71,7 +83,7 @@ class ViewController: UIViewController {
             cell.itemName.text = itemIdentifier.name
             cell.quantity.text = "\(itemIdentifier.quantity)"
             
-            // Fetch and assign the image
+            // fetch and assign the image
             if let itemImage = self.fridgeStore.fetchImage(withIdentifier: itemIdentifier.id) {
                 cell.itemImageView.image = itemImage
             } else {
@@ -102,24 +114,6 @@ class ViewController: UIViewController {
         }
     
     
-    
-    //method that displays the UIPickerView when the user selects the button
-    func setupFilterMenu() {
-        // create actions for each filter option
-        let actions = filterOptions.map { type in
-            UIAction(title: type.rawValue, handler: { _ in
-                self.filterButton.setTitle(type.rawValue, for: .normal)
-                self.createSnapshot(for: type)
-            })
-        }
-        
-        // create menu with the actions
-        let menu = UIMenu(title: "Select Filter", children: actions)
-        filterButton.menu = menu
-        filterButton.showsMenuAsPrimaryAction = true // Show menu on tap
-    }
-    
-
 
 }
 
@@ -150,29 +144,14 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     
     // no space between rows
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 10
     }
     
     // space between items
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
+        return 0
     }
     
-    // calculate size for each cell
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numberOfItemsPerRow: CGFloat = 2
-        let interItemSpacing: CGFloat = 10
-        
-        let totalWidth = collectionView.frame.width
-
-        let totalSpacing = (numberOfItemsPerRow - 1) * interItemSpacing
-        
-        let availableWidth = totalWidth - totalSpacing
-        
-        let itemWidth = availableWidth / numberOfItemsPerRow
-        
-        return CGSize(width: itemWidth, height: itemWidth)
-    }
 }
 
 extension ViewController: UICollectionViewDelegate{
