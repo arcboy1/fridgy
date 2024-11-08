@@ -45,7 +45,6 @@
                                 <color key="backgroundColor" name="frostBlue"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="5" sectionInsetReference="layoutMargins" id="MNE-Nc-Oyc">
                                     <size key="itemSize" width="170" height="170"/>
-                                    <size key="estimatedItemSize" width="170" height="170"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -54,16 +53,12 @@
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="fridgeCell" id="4sY-Ui-E7q" customClass="CustomCollectionViewCell" customModule="FridgyApp" customModuleProvider="target">
                                         <rect key="frame" x="8" y="8" width="170" height="170"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wW8-oa-Xkf">
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="phx-4Y-mMj">
                                             <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderimage" translatesAutoresizingMaskIntoConstraints="NO" id="fDe-Q3-BOn">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fDe-Q3-BOn">
                                                     <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="170" id="I29-S3-yV7"/>
-                                                        <constraint firstAttribute="height" constant="170" id="JMK-rO-yWc"/>
-                                                    </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="fzG-4S-afU">
                                                     <rect key="frame" x="0.0" y="113.66666666666667" width="170" height="56.333333333333329"/>
@@ -94,18 +89,17 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="fzG-4S-afU" firstAttribute="leading" secondItem="wW8-oa-Xkf" secondAttribute="leading" id="5Bb-Rp-7Oc"/>
-                                                <constraint firstItem="EfR-A3-61y" firstAttribute="leading" secondItem="wW8-oa-Xkf" secondAttribute="leading" constant="8" id="CDc-bT-4lC"/>
+                                                <constraint firstItem="fzG-4S-afU" firstAttribute="leading" secondItem="phx-4Y-mMj" secondAttribute="leading" id="5Bb-Rp-7Oc"/>
+                                                <constraint firstItem="EfR-A3-61y" firstAttribute="leading" secondItem="phx-4Y-mMj" secondAttribute="leading" constant="8" id="CDc-bT-4lC"/>
                                                 <constraint firstAttribute="trailing" secondItem="fDe-Q3-BOn" secondAttribute="trailing" id="GMu-fK-liJ"/>
-                                                <constraint firstItem="fDe-Q3-BOn" firstAttribute="top" secondItem="wW8-oa-Xkf" secondAttribute="top" id="X1B-rm-obB"/>
-                                                <constraint firstItem="fDe-Q3-BOn" firstAttribute="leading" secondItem="wW8-oa-Xkf" secondAttribute="leading" id="YMZ-4f-ZBp"/>
+                                                <constraint firstItem="fDe-Q3-BOn" firstAttribute="top" secondItem="phx-4Y-mMj" secondAttribute="top" id="X1B-rm-obB"/>
+                                                <constraint firstItem="fDe-Q3-BOn" firstAttribute="leading" secondItem="phx-4Y-mMj" secondAttribute="leading" id="YMZ-4f-ZBp"/>
                                                 <constraint firstAttribute="bottom" secondItem="fDe-Q3-BOn" secondAttribute="bottom" id="aHv-He-Fkj"/>
                                                 <constraint firstAttribute="trailing" secondItem="fzG-4S-afU" secondAttribute="trailing" id="bZI-Y3-zVh"/>
-                                                <constraint firstItem="EfR-A3-61y" firstAttribute="top" secondItem="wW8-oa-Xkf" secondAttribute="top" constant="8" id="suN-0f-5oh"/>
+                                                <constraint firstItem="EfR-A3-61y" firstAttribute="top" secondItem="phx-4Y-mMj" secondAttribute="top" constant="8" id="suN-0f-5oh"/>
                                                 <constraint firstAttribute="bottom" secondItem="fzG-4S-afU" secondAttribute="bottom" id="xMq-hD-st1"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="170" height="170"/>
                                         <connections>
                                             <outlet property="animationView" destination="EfR-A3-61y" id="bcy-Zf-Xqa"/>
                                             <outlet property="itemImageView" destination="fDe-Q3-BOn" id="0KO-VT-gkb"/>
@@ -416,7 +410,6 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
-        <image name="placeholderimage" width="612" height="612"/>
         <image name="plus.app.fill" catalog="system" width="128" height="114"/>
         <image name="selectimage" width="170" height="170"/>
         <namedColor name="customGrey">

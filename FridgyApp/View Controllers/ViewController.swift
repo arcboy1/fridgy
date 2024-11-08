@@ -191,13 +191,36 @@ class ViewController: UIViewController {
 
         // get the item to delete from currentItems
         let itemToDelete = currentItems[indexPath.item]
-        let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to delete \(itemToDelete.name)?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        let alert = UIAlertController(title: "Manage Item", message: "What would you like to do with \(itemToDelete.name)?", preferredStyle: .alert)
+        
+        // delete
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
             self.fridgeStore.removeItem(item: itemToDelete)
             self.createSnapshot(for: self.currentFilterType) // update the snapshot based on the current filter type
             self.removeNotifications(for: itemToDelete)
         }))
+        
+        // remove 1
+        alert.addAction(UIAlertAction(title: "Remove 1", style: .default, handler: { _ in
+            itemToDelete.quantity -= 1
+            
+            // if quantity 0 then remove the item
+            if itemToDelete.quantity <= 0 {
+                self.fridgeStore.removeItem(item: itemToDelete)
+                self.removeNotifications(for: itemToDelete)
+            } else {
+                self.fridgeStore.saveItems()
+            }
+            
+            // refresh collection
+            self.createSnapshot(for: self.currentFilterType)
+
+            self.collectionView.reloadData()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
         present(alert, animated: true)
     }
     
@@ -228,19 +251,23 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 //sets layout for collectionview cells
-//extension ViewController: UICollectionViewDelegateFlowLayout {
+extension ViewController: UICollectionViewDelegateFlowLayout {
     
-//    // no space between rows
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 10
-//    }
-//    
-//    // space between items
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 10
-//    }
-//    
-//}
+    // no space between rows
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    // space between items
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 170, height: 170)
+    }
+    
+}
 
 extension ViewController: UICollectionViewDelegate{
     
