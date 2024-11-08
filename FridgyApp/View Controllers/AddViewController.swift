@@ -281,8 +281,29 @@ class AddViewController: UIViewController {
         }
     }
     
+    //MARK: KEYBOARD AND GESTURES
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc func handleShake() {
+            nameField.text = ""
+            quantityField.text = ""
+            notes.text = ""
+            imageView.image = UIImage(named: "selectimage") // reset image if needed
+        }
+    
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            // clear the fields when a shake is detected
+            nameField.text = ""
+            quantityField.text = ""
+            notes.text = ""
+            filterButton.setTitle("Select Type", for: .normal)
+            imageView.image = UIImage(named: "selectimage") // reset image if needed
+        }
     }
 
 }
