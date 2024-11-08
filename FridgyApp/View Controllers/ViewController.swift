@@ -12,7 +12,11 @@ class ViewController: UIViewController {
     //MARK: PROPERTIES
     var fridgeStore=FridgeStore()
     
+    var currentItems: [FridgeItem] = []
+    
     var isAscendingOrder = true // true for ascending, false for descending
+    
+    var currentFilterType: FridgeType = .allItems
     
     //format for expiration date
     var dateFormatter: DateFormatter = {
@@ -38,10 +42,11 @@ class ViewController: UIViewController {
         let actions = filterOptions.map { type in
             UIAction(title: type.rawValue, handler: { _ in
                 self.filterButton.setTitle(type.rawValue, for: .normal)
+                self.currentFilterType = type
                 self.createSnapshot(for: type)
             })
         }
-            
+        
         // create menu with the actions
         let menu = UIMenu(title: "Select Filter", children: actions)
         filterButton.menu = menu
@@ -63,6 +68,7 @@ class ViewController: UIViewController {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
         collectionView.addGestureRecognizer(longPressGesture)
         
+        
         let center = UNUserNotificationCenter.current()
 
         center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
@@ -83,6 +89,8 @@ class ViewController: UIViewController {
         })
         
     }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         createSnapshot(for: .allItems)
@@ -90,6 +98,8 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         collectionView.reloadData()
+        filterButton.setTitle("All Items", for: .normal)
+        currentFilterType = .allItems
     }
     
     
@@ -118,19 +128,18 @@ class ViewController: UIViewController {
         snapshot.appendSections([type])
         
         // filter items based on the selected type
-        let filteredItems: [FridgeItem]
         if type == .allItems {
-            filteredItems = fridgeStore.allItems.sorted {
+            currentItems = fridgeStore.allItems.sorted {
                 isAscendingOrder ? $0.expirationDate < $1.expirationDate : $0.expirationDate > $1.expirationDate
             }
         } else {
-            filteredItems = fridgeStore.allItems.filter { $0.type == type }.sorted {
+            currentItems = fridgeStore.allItems.filter { $0.type == type }.sorted {
                 isAscendingOrder ? $0.expirationDate < $1.expirationDate : $0.expirationDate > $1.expirationDate
             }
         }
         
         // add filtered items to the snapshot for the specified section
-        snapshot.appendItems(filteredItems, toSection: type)
+        snapshot.appendItems(currentItems, toSection: type)
         
         collectionViewDataSource.apply(snapshot, animatingDifferences: true)
     }
@@ -140,15 +149,10 @@ class ViewController: UIViewController {
         guard let destination = segue.destination as? AddViewController else { return }
         destination.fridgeStore=fridgeStore
         if segue.identifier == "showDetail" {
-                // Get the selected index path from the collection view
                 if let indexPath = collectionView.indexPathsForSelectedItems?.first {
-                    // Access the snapshot from the data source
                     let snapshot = collectionViewDataSource.snapshot()
-                    
-                    // Get the item for the selected index path
+                    // get the item for the selected index path
                     let item = snapshot.itemIdentifiers[indexPath.item]
-                    
-                    // Pass the selected item to the destination
                     destination.passedItem = item
                 }
             }
@@ -158,7 +162,6 @@ class ViewController: UIViewController {
     //MARK: NOTIFICATIONS
     func removeNotifications(for item: FridgeItem) {
         let center = UNUserNotificationCenter.current()
-        
         // remove pending notifications for the item
         center.getPendingNotificationRequests { requests in
             let identifiersToRemove = requests.compactMap { request -> String? in
@@ -170,17 +173,35 @@ class ViewController: UIViewController {
     }
     
     //MARK: GESTURES
-    
+    //shake to change sort ascending/descending
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             // Toggle sorting order
             isAscendingOrder.toggle()
             print("Sorting order changed: \(isAscendingOrder ? "Ascending" : "Descending")")
             
-            // Refresh the snapshot with the new sorting order
-            createSnapshot(for: .allItems)
+            // refresh the snapshot with the current filter type
+            createSnapshot(for: currentFilterType)
         }
     }
+    
+    @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        let point = gesture.location(in: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: point), gesture.state == .began else { return }
+
+        // get the item to delete from currentItems
+        let itemToDelete = currentItems[indexPath.item]
+        let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to delete \(itemToDelete.name)?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+            self.fridgeStore.removeItem(item: itemToDelete)
+            self.createSnapshot(for: self.currentFilterType) // update the snapshot based on the current filter type
+            self.removeNotifications(for: itemToDelete)
+        }))
+        present(alert, animated: true)
+    }
+    
+    
     
     
     
@@ -226,22 +247,6 @@ extension ViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // deselect the item immediately after it's tapped
         collectionView.deselectItem(at: indexPath, animated: true)
-    }
-    // handle long press to delete item
-    @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
-        let point = gesture.location(in: collectionView)
-        guard let indexPath = collectionView.indexPathForItem(at: point), gesture.state == .began else { return }
-
-        // confirm deletion
-        let itemToDelete = fridgeStore.allItems[indexPath.item]
-        let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to delete \(itemToDelete.name)?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
-            self.fridgeStore.removeItem(item: itemToDelete)
-            self.createSnapshot(for: .allItems)
-            self.removeNotifications(for: itemToDelete)
-        }))
-        present(alert, animated: true)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
