@@ -41,6 +41,7 @@ class AddViewController: UIViewController {
         let actions = filterOptions.map { type in
             UIAction(title: type.rawValue, handler: { _ in
                 self.filterButton.setTitle(type.rawValue, for: .normal)
+
             })
         }
             
@@ -93,8 +94,7 @@ class AddViewController: UIViewController {
             // save changes to the fridge store
             fridgeStore.saveItems()
             
-            //update notifications
-            scheduleNotifications(for: passedItem)
+            removePendingNotifications(for: passedItem)
             
         } else {
             // create a new FridgeItem if were not editing/updating
@@ -108,8 +108,7 @@ class AddViewController: UIViewController {
             // add the new item to the fridge store
             fridgeStore.addNewItem(item: newItem)
             
-            //add notification
-            scheduleNotifications(for: newItem)
+            removePendingNotifications(for: newItem)
         }
 
         // navigate back to the previous screen
@@ -124,6 +123,9 @@ class AddViewController: UIViewController {
         imageView.isUserInteractionEnabled=true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(importPicture))
         imageView.addGestureRecognizer(tapGesture)
+        
+        let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(dismissKeyboardTap)
         
         //initialize passed item to proper fields
         if let passedItem = passedItem {
@@ -203,17 +205,23 @@ class AddViewController: UIViewController {
     }
     
     //MARK: NAVIGATION
-    func scheduleNotifications(for item: FridgeItem) {
+    // method to remove pending notifications for the item
+    func removePendingNotifications(for item: FridgeItem) {
         let center = UNUserNotificationCenter.current()
-
-        // remove previous notifications for this item
         center.getPendingNotificationRequests { requests in
             let identifiersToRemove = requests.compactMap { request -> String? in
                 return request.identifier.hasPrefix(item.id) ? request.identifier : nil
             }
             center.removePendingNotificationRequests(withIdentifiers: identifiersToRemove)
-        }
 
+            // after removing notifications, schedule the new notifications
+            self.scheduleNotifications(for: item)
+        }
+    }
+
+    // combined method to schedule both notifications
+    func scheduleNotifications(for item: FridgeItem) {
+        
         // check if the item is expired
         guard item.expirationDate > Date() else {
             print("cannot schedule notifications: item has already expired.")
@@ -227,7 +235,21 @@ class AddViewController: UIViewController {
         expirationContent.sound = .default
 
         let expirationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: item.expirationDate.timeIntervalSinceNow, repeats: false)
+        // ensure the time interval is valid
+        guard expirationTrigger.timeInterval > 0 else {
+            print("cannot schedule expiration notification: time interval must be greater than 0.")
+            return
+        }
+
         let expirationRequest = UNNotificationRequest(identifier: "\(item.id)_expiration", content: expirationContent, trigger: expirationTrigger)
+        let center = UNUserNotificationCenter.current()
+        center.add(expirationRequest) { error in
+            if let error = error {
+                print("error scheduling expiration notification: \(error.localizedDescription)")
+            } else {
+                print("expiration notification scheduled successfully")
+            }
+        }
 
         // schedule nearing expiration notification (3 days before expiration)
         let nearingExpirationContent = UNMutableNotificationContent()
@@ -237,23 +259,19 @@ class AddViewController: UIViewController {
 
         let threeDaysBefore = Calendar.current.date(byAdding: .day, value: -3, to: item.expirationDate)
         // check if three days before is in the future
-        guard let threeDaysBefore = threeDaysBefore, threeDaysBefore > Date() else {
+        guard let threeDaysBeforeDate = threeDaysBefore, threeDaysBeforeDate > Date() else {
             print("cannot schedule nearing expiration notification: item is expiring within 3 days.")
             return
         }
 
-        let nearingExpirationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: threeDaysBefore.timeIntervalSinceNow, repeats: false)
-        let nearingExpirationRequest = UNNotificationRequest(identifier: "\(item.id)_nearing_expiration", content: nearingExpirationContent, trigger: nearingExpirationTrigger)
-
-        // schedule the requests
-        center.add(expirationRequest) { error in
-            if let error = error {
-                print("error scheduling expiration notification: \(error.localizedDescription)")
-            } else {
-                print("expiration notification scheduled successfully")
-            }
+        let nearingExpirationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: threeDaysBeforeDate.timeIntervalSinceNow, repeats: false)
+        // ensure the time interval is valid
+        guard nearingExpirationTrigger.timeInterval > 0 else {
+            print("cannot schedule nearing expiration notification: time interval must be greater than 0.")
+            return
         }
 
+        let nearingExpirationRequest = UNNotificationRequest(identifier: "\(item.id)_nearing_expiration", content: nearingExpirationContent, trigger: nearingExpirationTrigger)
         center.add(nearingExpirationRequest) { error in
             if let error = error {
                 print("error scheduling nearing expiration notification: \(error.localizedDescription)")
@@ -261,6 +279,10 @@ class AddViewController: UIViewController {
                 print("nearing expiration notification scheduled successfully")
             }
         }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 
 }

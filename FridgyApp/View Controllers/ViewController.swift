@@ -49,7 +49,7 @@ class ViewController: UIViewController {
     
     
     
-    //MARK: View methods
+    //MARK: VIEW METHODS
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +75,11 @@ class ViewController: UIViewController {
             }
         }
         
+        center.getPendingNotificationRequests(completionHandler: {
+            requests in
+            print(requests)
+        })
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -86,7 +91,7 @@ class ViewController: UIViewController {
     }
     
     
-    //MARK: - Datasource methods
+    //MARK: - DATASOURCE METHODS
     private lazy var collectionViewDataSource = UICollectionViewDiffableDataSource<FridgeType, FridgeItem>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "fridgeCell", for: indexPath) as! CustomCollectionViewCell
         
@@ -144,12 +149,26 @@ class ViewController: UIViewController {
 
         }
     
+    //MARK: NOTIFICATIONS
+    func removeNotifications(for item: FridgeItem) {
+        let center = UNUserNotificationCenter.current()
+        
+        // remove pending notifications for the item
+        center.getPendingNotificationRequests { requests in
+            let identifiersToRemove = requests.compactMap { request -> String? in
+                return request.identifier.hasPrefix(item.id) ? request.identifier : nil
+            }
+            center.removePendingNotificationRequests(withIdentifiers: identifiersToRemove)
+            print("Removed notifications for item: \(item.name)")
+        }
+    }
+    
     
     
 
 }
 
-//MARK: Extension methods
+//MARK: EXTENSION METHODS
 extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     //methods for supplying data to pickerview and controlling its appearance/text
@@ -201,6 +220,7 @@ extension ViewController: UICollectionViewDelegate{
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
             self.fridgeStore.removeItem(item: itemToDelete)
             self.createSnapshot(for: .allItems)
+            self.removeNotifications(for: itemToDelete)
         }))
         present(alert, animated: true)
     }

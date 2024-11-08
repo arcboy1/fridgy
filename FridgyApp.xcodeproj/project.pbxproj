@@ -49,6 +49,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A11464272CDD6274006A289F /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				A13F61FF2CD6F19500AD67E6 /* ExpirationProgressView.swift */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
+		A11464282CDD627D006A289F /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A1F96C592CA4E01C00B9D399 /* ViewController.swift */,
+				A1E2430E2CDC662A008D5303 /* AddViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 		A13F61F52CD5A00D00AD67E6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,9 +119,8 @@
 			children = (
 				A1F96C552CA4E01C00B9D399 /* AppDelegate.swift */,
 				A1F96C572CA4E01C00B9D399 /* SceneDelegate.swift */,
-				A1F96C592CA4E01C00B9D399 /* ViewController.swift */,
-				A1E2430E2CDC662A008D5303 /* AddViewController.swift */,
-				A13F61FF2CD6F19500AD67E6 /* ExpirationProgressView.swift */,
+				A11464282CDD627D006A289F /* View Controllers */,
+				A11464272CDD6274006A289F /* Animation */,
 				A13F61FB2CD6CD5600AD67E6 /* Persistance */,
 				A1F96C5B2CA4E01C00B9D399 /* Main.storyboard */,
 				A13F61FA2CD6CD4500AD67E6 /* Models */,
