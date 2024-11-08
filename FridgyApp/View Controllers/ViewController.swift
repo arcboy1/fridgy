@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     //MARK: PROPERTIES
     var fridgeStore=FridgeStore()
     
+    var isAscendingOrder = true // true for ascending, false for descending
+    
     //format for expiration date
     var dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -118,9 +120,13 @@ class ViewController: UIViewController {
         // filter items based on the selected type
         let filteredItems: [FridgeItem]
         if type == .allItems {
-            filteredItems = fridgeStore.allItems // default to all items
+            filteredItems = fridgeStore.allItems.sorted {
+                isAscendingOrder ? $0.expirationDate < $1.expirationDate : $0.expirationDate > $1.expirationDate
+            }
         } else {
-            filteredItems = fridgeStore.allItems.filter { $0.type == type }
+            filteredItems = fridgeStore.allItems.filter { $0.type == type }.sorted {
+                isAscendingOrder ? $0.expirationDate < $1.expirationDate : $0.expirationDate > $1.expirationDate
+            }
         }
         
         // add filtered items to the snapshot for the specified section
@@ -160,6 +166,19 @@ class ViewController: UIViewController {
             }
             center.removePendingNotificationRequests(withIdentifiers: identifiersToRemove)
             print("Removed notifications for item: \(item.name)")
+        }
+    }
+    
+    //MARK: GESTURES
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            // Toggle sorting order
+            isAscendingOrder.toggle()
+            print("Sorting order changed: \(isAscendingOrder ? "Ascending" : "Descending")")
+            
+            // Refresh the snapshot with the new sorting order
+            createSnapshot(for: .allItems)
         }
     }
     
