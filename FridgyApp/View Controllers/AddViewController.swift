@@ -191,6 +191,8 @@ class AddViewController: UIViewController {
         quantityField.layer.cornerRadius = 15
         quantityField.layer.masksToBounds = true
         
+        notes.backgroundColor = .white
+        
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
         imageView.layer.borderColor = UIColor.white.cgColor
@@ -204,7 +206,7 @@ class AddViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    //MARK: NAVIGATION
+    //MARK: NOTIFICATIONS
     // method to remove pending notifications for the item
     func removePendingNotifications(for item: FridgeItem) {
         let center = UNUserNotificationCenter.current()
@@ -232,7 +234,6 @@ class AddViewController: UIViewController {
         let expirationContent = UNMutableNotificationContent()
         expirationContent.title = "Item Expired"
         expirationContent.body = "The item '\(item.name)' has expired."
-        expirationContent.sound = .default
 
         let expirationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: item.expirationDate.timeIntervalSinceNow, repeats: false)
         // ensure the time interval is valid
@@ -255,7 +256,6 @@ class AddViewController: UIViewController {
         let nearingExpirationContent = UNMutableNotificationContent()
         nearingExpirationContent.title = "Item Expiration Reminder"
         nearingExpirationContent.body = "The item '\(item.name)' is close to expiring in 3 days."
-        nearingExpirationContent.sound = .default
 
         let threeDaysBefore = Calendar.current.date(byAdding: .day, value: -3, to: item.expirationDate)
         // check if three days before is in the future

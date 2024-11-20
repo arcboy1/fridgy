@@ -58,7 +58,7 @@ class ExpirationProgressView: UIView {
         progressPath.lineWidth = lineWidth
         progressPath.stroke()
         
-        if remainingDays < 0 {
+        if remainingDays < 1 {
             drawExclamationMark(at: center, in: rect)
         }
     }
